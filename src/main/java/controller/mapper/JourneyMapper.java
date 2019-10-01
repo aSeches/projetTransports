@@ -5,7 +5,7 @@ import model.Journey;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface JourneyMapper {
+public interface JourneyMapper extends GenericMapper<Journey, JourneyDTO> {
 
     JourneyDTO toDTO(Journey journey);
 

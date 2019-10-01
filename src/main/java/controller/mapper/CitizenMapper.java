@@ -5,7 +5,7 @@ import model.Citizen;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface CitizenMapper{
+public interface CitizenMapper extends GenericMapper<Citizen, CitizenDTO>{
 
     CitizenDTO toDTO(Citizen citizen);
 

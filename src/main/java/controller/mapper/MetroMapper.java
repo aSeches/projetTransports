@@ -5,7 +5,7 @@ import model.Metro;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface MetroMapper {
+public interface MetroMapper extends GenericMapper<Metro, MetroDTO>{
 
     MetroDTO toDTO(Metro metro);
 

@@ -5,7 +5,7 @@ import model.Bus;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface BusMapper {
+public interface BusMapper extends GenericMapper<Bus, BusDTO> {
 
     BusDTO toDTO(Bus bus);
 
