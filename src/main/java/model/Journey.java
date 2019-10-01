@@ -32,13 +32,22 @@ public class Journey implements Serializable {
         this.id = id;
     }
 
+    @Id
     public long getIdCitizen() {
         return idCitizen;
+    }
+
+    public void setIdCitizen(long idCitizen) {
+        this.idCitizen = idCitizen;
     }
 
     @Id
     public long getIdVehicle() {
         return idVehicle;
+    }
+
+    public void setIdVehicle(long idVehicle) {
+        this.idVehicle = idVehicle;
     }
 
     public LocalTime getDeparture() {
@@ -71,4 +80,5 @@ public class Journey implements Serializable {
                 + ", departure= " + departure + ", commute= " + commute + ", arrival= " + arrival
                 + "]";
     }
+
 }

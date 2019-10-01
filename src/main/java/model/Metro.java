@@ -13,8 +13,8 @@ public class Metro implements Vehicle, Serializable {
 
     private long id;
     private ArrayList<Citizen> passengers;
-    final private int maxCapacity = 60;
-    final private double kmhSpeed = 70.00;
+    private int maxCapacity = 60;
+    private double kmhSpeed = 70.00;
 
     public Metro(){
         passengers = new ArrayList<Citizen>();
@@ -25,6 +25,31 @@ public class Metro implements Vehicle, Serializable {
     @GeneratedValue
     public long getId() {
         return id;
+    }
+
+    @Override
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    @Override
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    @Override
+    public double getSpeed() {
+        return kmhSpeed;
+    }
+
+    @Override
+    public void setSpeed(double speed) {
+        this.kmhSpeed = speed;
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override
@@ -43,11 +68,6 @@ public class Metro implements Vehicle, Serializable {
     }
 
     @Override
-    public double getSpeed() {
-        return kmhSpeed;
-    }
-
-    @Override
     public void getIn(Citizen c) {
         if(!(passengers.contains(c))){
             passengers.add(c);
@@ -62,6 +82,7 @@ public class Metro implements Vehicle, Serializable {
     }
 
     @Override
+    @Transient
     public boolean isFull() {
         if(passengers.size() >= maxCapacity){
             return true;

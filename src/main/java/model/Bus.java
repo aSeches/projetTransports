@@ -14,8 +14,8 @@ public class Bus implements Vehicle, Serializable {
 
     private long id;
     private ArrayList<Citizen> passengers;
-    final private int maxCapacity = 40;
-    final private double kmhSpeed = 50.00;
+    private int maxCapacity = 40;
+    private double kmhSpeed = 50.00;
 
     public Bus(){this.passengers = new ArrayList<Citizen>();}
 
@@ -24,6 +24,11 @@ public class Bus implements Vehicle, Serializable {
     @GeneratedValue
     public long getId() {
         return id;
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override
@@ -39,6 +44,21 @@ public class Bus implements Vehicle, Serializable {
     @Override
     public double getSpeed() {
         return kmhSpeed;
+    }
+
+    @Override
+    public void setSpeed(double speed) {
+        this.kmhSpeed = speed;
+    }
+
+    @Override
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    @Override
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
     }
 
     @Override
@@ -61,6 +81,7 @@ public class Bus implements Vehicle, Serializable {
     }
 
     @Override
+    @Transient
     public boolean isFull() {
         if(passengers.size() >= maxCapacity){
             return true;

@@ -1,13 +1,11 @@
 package dto;
 
-import javax.ws.rs.Path;
 import java.io.Serializable;
 
 /**
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-@Path("citizen")
 public class CitizenDTO implements Serializable {
 
     private Long id;

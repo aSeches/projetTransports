@@ -10,7 +10,15 @@ public interface Vehicle {
 
     long getId();
 
+    void setId(long id);
+
     double getSpeed();
+
+    void setSpeed(double speed);
+
+    int getMaxCapacity();
+
+    void setMaxCapacity(int maxCapacity);
 
     ArrayList<Citizen> getPassengers();
 

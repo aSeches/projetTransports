@@ -37,6 +37,7 @@ public class CitizenDAO extends DAO<Citizen> {
         helper.commit();
     }
 
+    /*
     public void save(Citizen c){
         try{
             helper.beginTransaction();
@@ -47,6 +48,7 @@ public class CitizenDAO extends DAO<Citizen> {
             throw e;
         }
     }
+     */
 
     public Citizen update(Citizen c){
         helper.beginTransaction();

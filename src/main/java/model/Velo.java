@@ -13,8 +13,8 @@ public class Velo implements Vehicle, Serializable {
 
     private long id;
     private ArrayList<Citizen> rider;
-    final private int maxCapacity = 1;
-    final private double kmhSpeed = 20.00;
+    private int maxCapacity = 1;
+    private double kmhSpeed = 20.00;
 
     public Velo(){
         rider = new ArrayList<Citizen>();
@@ -25,6 +25,31 @@ public class Velo implements Vehicle, Serializable {
     @GeneratedValue
     public long getId(){
         return id;
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public double getSpeed() {
+        return kmhSpeed;
+    }
+
+    @Override
+    public void setSpeed(double speed) {
+        this.kmhSpeed = speed;
+    }
+
+    @Override
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    @Override
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
     }
 
     @Override
@@ -43,11 +68,6 @@ public class Velo implements Vehicle, Serializable {
     }
 
     @Override
-    public double getSpeed() {
-        return kmhSpeed;
-    }
-
-    @Override
     public void getIn(Citizen c) {
         if(!(rider.contains(c))){
             rider.add(c);
@@ -62,6 +82,7 @@ public class Velo implements Vehicle, Serializable {
     }
 
     @Override
+    @Transient
     public boolean isFull() {
         if(rider.size() == maxCapacity){
             return true;

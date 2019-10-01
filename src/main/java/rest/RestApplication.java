@@ -1,5 +1,6 @@
 package rest;
 
+import controller.CitizenEndPoint;
 import dto.BusDTO;
 import dto.CitizenDTO;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
@@ -20,8 +21,8 @@ public class RestApplication extends Application {
         // SWAGGER endpoints
         resources.add(OpenApiResource.class);
 
-        //Your own resources.
-        resources.add(CitizenDTO.class);
+        //Your own resources. (endpoints)
+        resources.add(CitizenEndPoint.class);
         return resources;
     }
 }

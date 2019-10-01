@@ -43,7 +43,7 @@ public class JpaTest {
     }
 
     public void createCitizens(){
-        int numOfCitizens = manager.createQuery("Select a citizen from Citizens a",Citizen.class).getResultList().size();
+        int numOfCitizens = manager.createQuery("FROM Citizen c",Citizen.class).getResultList().size();
         if(numOfCitizens == 0){
             Citizen citizen = new Citizen();
             manager.persist(citizen);
@@ -54,12 +54,11 @@ public class JpaTest {
         }
     }
 
-
     public void listCitizens(){
-        List<Citizen> resultList = manager.createQuery("Select * from Citizen",Citizen.class).getResultList();
+        List<Citizen> resultList = manager.createQuery("FROM Citizen c",Citizen.class).getResultList();
         System.out.println("numOfCitizens = " + resultList.size());
         for (Citizen next : resultList){
-            System.out.println("next bus" + next);
+            System.out.println("next bus");
         }
     }
 
