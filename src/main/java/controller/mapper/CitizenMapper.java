@@ -4,6 +4,9 @@ import dto.CitizenDTO;
 import model.Citizen;
 import org.mapstruct.Mapper;
 
+/**
+ * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
+ */
 @Mapper
 public interface CitizenMapper extends GenericMapper<Citizen, CitizenDTO>{
 

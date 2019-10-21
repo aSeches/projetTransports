@@ -13,6 +13,9 @@ import javax.ws.rs.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
+ */
 @Path("metro")
 public class MetroEndPoint extends GenericEndPoint<Metro, MetroDTO> {
 

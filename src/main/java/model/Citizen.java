@@ -3,6 +3,7 @@ package model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -26,6 +27,7 @@ public class Citizen implements Serializable {
     }
 
     @Id
+    @NotNull
     @GeneratedValue
     public long getId(){return id;}
 

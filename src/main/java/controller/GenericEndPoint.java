@@ -12,6 +12,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
+ */
 public abstract class GenericEndPoint <T extends Serializable, O extends Serializable> {
 
     private DAO<T> DAObject;
@@ -35,6 +38,8 @@ public abstract class GenericEndPoint <T extends Serializable, O extends Seriali
 
         return dtobjectsList;
     }
+
+    //TODO : ajouter les méthodes PUT et POST pour créer des entités en base.
 
     @Path("/{id}")
     @DELETE

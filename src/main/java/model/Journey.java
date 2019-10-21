@@ -3,6 +3,7 @@ package model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalTime;
 
@@ -23,6 +24,7 @@ public class Journey implements Serializable {
     }
 
     @Id
+    @NotNull
     @GeneratedValue
     public long getId() {
         return id;
@@ -33,6 +35,7 @@ public class Journey implements Serializable {
     }
 
     @Id
+    @NotNull
     public long getIdCitizen() {
         return idCitizen;
     }
@@ -42,6 +45,7 @@ public class Journey implements Serializable {
     }
 
     @Id
+    @NotNull
     public long getIdVehicle() {
         return idVehicle;
     }

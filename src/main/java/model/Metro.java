@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class Metro implements Vehicle, Serializable {
 
     @Override
     @Id
+    @NotNull
     @GeneratedValue
     public long getId() {
         return id;
