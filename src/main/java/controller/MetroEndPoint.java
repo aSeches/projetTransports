@@ -17,21 +17,21 @@ import java.util.List;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 @Path("metro")
-public class MetroEndPoint extends GenericEndPoint<Metro, MetroDTO> {
+public class MetroEndPoint {
 
     private MetroDAO metroDAO;
     private MetroMapper mapper = Mappers.getMapper(MetroMapper.class);
 
     @Path("/{id}")
     @GET
-    MetroDTO findById(@PathParam("{id}") long id){
+    public MetroDTO findById(@PathParam("{id}") long id){
         Metro metro = metroDAO.findById(id);
         MetroDTO metroDTO = mapper.toDTO(metro);
         return metroDTO;
     }
 
     @GET
-    List<MetroDTO> findAll(){
+    public List<MetroDTO> findAll(){
         List<MetroDTO> metroDTOS = new ArrayList<>();
 
         for(Metro m : metroDAO.findAll()){
@@ -42,7 +42,7 @@ public class MetroEndPoint extends GenericEndPoint<Metro, MetroDTO> {
 
     @Path("/{id}")
     @DELETE
-    void delete(@PathParam("{id}")long id){
+    public void delete(@PathParam("{id}")long id){
         Metro metro = metroDAO.findById(id);
         metroDAO.delete(metro);
     }

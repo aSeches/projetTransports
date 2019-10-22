@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 @Mapper
-public interface BusMapper extends GenericMapper<Bus, BusDTO> {
+public interface BusMapper{
 
     BusDTO toDTO(Bus bus);
 

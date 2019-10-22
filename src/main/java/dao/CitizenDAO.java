@@ -19,9 +19,7 @@ public class CitizenDAO extends DAO<Citizen> {
     EntityManager entityManager;
     EntityManagerHelper helper;
 
-    public CitizenDAO(){
-        setClass(Citizen.class);
-    }
+    public CitizenDAO(){ }
 
     public Citizen findById(long id){
         return entityManager.find(citizenClass, id);

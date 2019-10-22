@@ -17,21 +17,21 @@ import java.util.List;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 @Path("velo")
-public class VeloEndPoint extends GenericEndPoint<Velo, VeloDTO>{
+public class VeloEndPoint{
 
     private VeloDAO veloDAO;
     private VeloMapper mapper = Mappers.getMapper(VeloMapper.class);
 
     @Path("/{id}")
     @GET
-    VeloDTO findById(@PathParam("{id}") long id){
+    public VeloDTO findById(@PathParam("{id}") long id){
         Velo velo = veloDAO.findById(id);
         VeloDTO veloDTO = mapper.toDTO(velo);
         return veloDTO;
     }
 
     @GET
-    List <VeloDTO> findAll(){
+    public List <VeloDTO> findAll(){
         List<VeloDTO> veloDTOS = new ArrayList<>();
 
         for(Velo v : veloDAO.findAll()){
@@ -42,7 +42,7 @@ public class VeloEndPoint extends GenericEndPoint<Velo, VeloDTO>{
 
     @Path("/{id}")
     @DELETE
-    void delete(@PathParam("{id}") long id){
+    public void delete(@PathParam("{id}") long id){
         Velo velo = veloDAO.findById(id);
         veloDAO.delete(velo);
     }

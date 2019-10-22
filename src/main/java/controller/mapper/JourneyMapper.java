@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 @Mapper
-public interface JourneyMapper extends GenericMapper<Journey, JourneyDTO> {
+public interface JourneyMapper{
 
     JourneyDTO toDTO(Journey journey);
 

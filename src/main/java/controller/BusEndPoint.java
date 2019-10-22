@@ -24,14 +24,14 @@ public class BusEndPoint {
 
     @Path("/{id}")
     @GET
-    BusDTO findById(@PathParam("{id}") long id){
+    public BusDTO findById(@PathParam("{id}") long id){
         Bus bus = busDAO.findById(id);
         BusDTO busDTO = mapper.toDTO(bus);
         return busDTO;
     }
 
     @GET
-    List<BusDTO> findAll(){
+    public List<BusDTO> findAll(){
         List<BusDTO> busDTOS = new ArrayList<>();
 
         for(Bus b : busDAO.findAll()){
@@ -42,7 +42,7 @@ public class BusEndPoint {
 
     @Path("/{id}")
     @DELETE
-    void delete(@PathParam("{id}") long id) {
+    public void delete(@PathParam("{id}") long id) {
         Bus bus = busDAO.findById(id);
         busDAO.delete(bus);
     }

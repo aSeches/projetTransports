@@ -17,21 +17,21 @@ import java.util.List;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 @Path("citizen")
-public class CitizenEndPoint extends GenericEndPoint<Citizen, CitizenDTO> {
+public class CitizenEndPoint{
 
-    private CitizenDAO citizenDAO;
+    private CitizenDAO citizenDAO = new CitizenDAO();
     private CitizenMapper mapper = Mappers.getMapper(CitizenMapper.class);
 
     @Path("/{id}")
     @GET
-    CitizenDTO findById(@PathParam("{id}") long id){
+    public CitizenDTO findById(@PathParam("{id}") long id){
         Citizen citizen = citizenDAO.findById(id);
         CitizenDTO citizenDTO = mapper.toDTO(citizen);
         return citizenDTO;
     }
 
     @GET
-    List<CitizenDTO> findAll(){
+    public List<CitizenDTO> findAll(){
         List<CitizenDTO> citizenDTOS = new ArrayList<>();
 
         for(Citizen c : citizenDAO.findAll()){
@@ -43,7 +43,7 @@ public class CitizenEndPoint extends GenericEndPoint<Citizen, CitizenDTO> {
 
     @Path("/{id}")
     @DELETE
-    void delete(@PathParam("{id}") long id){
+    public void delete(@PathParam("{id}") long id){
         Citizen citizen = citizenDAO.findById(id);
         citizenDAO.delete(citizen);
     }
