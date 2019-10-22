@@ -1,61 +1,61 @@
 package dao;
 
+import com.mysql.fabric.xmlrpc.base.Param;
 import m2info.EntityManagerHelper;
 import model.Bus;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class BusDAO extends DAO<Bus> {
+public class BusDAO<Bus, P extends Serializable> implements DAO<Bus,P> {
 
-    private Class<Bus> busClass;
+    protected Class<Bus> bus;
 
     @PersistenceContext
     EntityManager entityManager;
     EntityManagerHelper helper;
 
     public BusDAO(){
-        setClass(Bus.class);
+        ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
+        this.bus = (Class<Bus>) genericSuperClass.getActualTypeArguments()[0];
     }
 
-    public Bus findById(long id){
-        return entityManager.find(busClass, id);
+    @Override
+    public Bus findById(P id) {
+        helper.beginTransaction();
+        Bus searchedBus = entityManager.find(bus, id);
+        helper.commit();
+        return searchedBus;
     }
 
-    public List<Bus> findAll(){
-        return entityManager.createQuery("FROM " + busClass.getName()).getResultList();
+    @Override
+    public List<Bus> findAll() {
+        return entityManager.createQuery("SELECT * FROM " + bus.getName()).getResultList();
     }
 
-    public void create(Bus b){
+    @Override
+    public void create(Bus b) {
         helper.beginTransaction();
         entityManager.persist(b);
         helper.commit();
     }
 
-    public void save(Bus b){
-        try{
-            helper.beginTransaction();
-            entityManager.persist(b);
-            helper.commit();
-        } catch (RuntimeException e){
-            helper.rollback();
-            throw e;
-        }
-    }
-
-    public Bus update(Bus b){
+    @Override
+    public void update(Bus b) {
         helper.beginTransaction();
-        Bus updatedParameter = entityManager.merge(b);
+        entityManager.merge(b);
         helper.commit();
-        return updatedParameter;
     }
 
-    public void delete(Bus b){
+    @Override
+    public void delete(Bus b) {
         helper.beginTransaction();
         entityManager.remove(b);
         helper.commit();

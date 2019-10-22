@@ -4,6 +4,7 @@ import controller.mapper.JourneyMapper;
 import dao.JourneyDAO;
 import dto.JourneyDTO;
 import model.Journey;
+import org.hibernate.annotations.Cascade;
 import org.mapstruct.factory.Mappers;
 
 import javax.ws.rs.DELETE;
@@ -25,8 +26,7 @@ public class JourneyEndPoint{
     @Path("/{id}")
     @GET
     public JourneyDTO findById(@PathParam("{id}")long id){
-        Journey journey = journeyDAO.findById(id);
-        JourneyDTO journeyDTO = mapper.toDTO(journey);
+        JourneyDTO journeyDTO = mapper.toDTO((Journey) journeyDAO.findById(id));
         return journeyDTO;
     }
 
@@ -34,8 +34,9 @@ public class JourneyEndPoint{
     public List<JourneyDTO> findAll(){
         List<JourneyDTO> journeyDTOS = new ArrayList<>();
 
-        for(Journey j : journeyDAO.findAll()){
-            journeyDTOS.add(mapper.toDTO(j));
+        //IDE suggestion : change type of m to Object, then cast it as Journey
+        for(Object j : journeyDAO.findAll()){
+            journeyDTOS.add(mapper.toDTO((Journey) j));
         }
         return journeyDTOS;
     }
@@ -43,7 +44,7 @@ public class JourneyEndPoint{
     @Path("/{id}")
     @DELETE
     public void delete(long id){
-        Journey journey = journeyDAO.findById(id);
+        Journey journey = (Journey) journeyDAO.findById(id);
         journeyDAO.delete(journey);
     }
 }

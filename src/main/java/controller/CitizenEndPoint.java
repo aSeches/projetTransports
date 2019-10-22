@@ -25,8 +25,7 @@ public class CitizenEndPoint{
     @Path("/{id}")
     @GET
     public CitizenDTO findById(@PathParam("{id}") long id){
-        Citizen citizen = citizenDAO.findById(id);
-        CitizenDTO citizenDTO = mapper.toDTO(citizen);
+        CitizenDTO citizenDTO = mapper.toDTO((Citizen) citizenDAO.findById(id));
         return citizenDTO;
     }
 
@@ -34,8 +33,9 @@ public class CitizenEndPoint{
     public List<CitizenDTO> findAll(){
         List<CitizenDTO> citizenDTOS = new ArrayList<>();
 
-        for(Citizen c : citizenDAO.findAll()){
-            citizenDTOS.add(mapper.toDTO(c));
+        //IDE suggestion : change type of m to Object, then cast it as Metro
+        for(Object c : citizenDAO.findAll()){
+            citizenDTOS.add(mapper.toDTO((Citizen) c));
         }
         return citizenDTOS;
     }
@@ -44,7 +44,7 @@ public class CitizenEndPoint{
     @Path("/{id}")
     @DELETE
     public void delete(@PathParam("{id}") long id){
-        Citizen citizen = citizenDAO.findById(id);
+        Citizen citizen = (Citizen) citizenDAO.findById(id);
         citizenDAO.delete(citizen);
     }
 

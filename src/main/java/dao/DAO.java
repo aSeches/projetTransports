@@ -11,54 +11,16 @@ import java.util.List;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public abstract class DAO<T extends Serializable> {
+public interface DAO<T, P extends Serializable> {
 
-    private Class<T> dao;
+    T findById(P id);
 
-   @PersistenceContext
-   EntityManager entityManager;
-   EntityManagerHelper helper;
+    List<T> findAll();
 
-   public final void setClass(Class<T> classToSet){
-       this.dao = classToSet;
-   }
+    void create(T t);
 
-   public T findById(long id){
-       return entityManager.find(dao, id);
-   }
+    void update(T t);
 
-   public List<T> findAll(){
-       return entityManager.createQuery("SELECT * FROM " + dao.getName()).getResultList();
-   }
-
-   public void create(T entity){
-       helper.beginTransaction();
-       entityManager.persist(entity);
-       helper.commit();
-   }
-
-   public void save(T entity){
-       try{
-           helper.beginTransaction();
-           entityManager.persist(entity);
-           helper.commit();
-       } catch (RuntimeException e){
-           helper.rollback();
-           throw e;
-       }
-   }
-
-   public T update(T entity){
-       helper.beginTransaction();
-       T updatedParameter = entityManager.merge(entity);
-       helper.commit();
-       return updatedParameter;
-   }
-
-   public void delete(T entity){
-       helper.beginTransaction();
-       entityManager.remove(entity);
-       helper.commit();
-   }
+    void delete(T t);
 
 }

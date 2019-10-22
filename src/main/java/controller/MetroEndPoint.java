@@ -25,8 +25,7 @@ public class MetroEndPoint {
     @Path("/{id}")
     @GET
     public MetroDTO findById(@PathParam("{id}") long id){
-        Metro metro = metroDAO.findById(id);
-        MetroDTO metroDTO = mapper.toDTO(metro);
+        MetroDTO metroDTO = mapper.toDTO((Metro) metroDAO.findById(id));
         return metroDTO;
     }
 
@@ -34,8 +33,9 @@ public class MetroEndPoint {
     public List<MetroDTO> findAll(){
         List<MetroDTO> metroDTOS = new ArrayList<>();
 
-        for(Metro m : metroDAO.findAll()){
-            metroDTOS.add(mapper.toDTO(m));
+        //IDE suggestion : change type of m to Object, then cast it as Metro
+        for(Object m : metroDAO.findAll()){
+            metroDTOS.add(mapper.toDTO((Metro) m));
         }
         return metroDTOS;
     }
@@ -43,7 +43,7 @@ public class MetroEndPoint {
     @Path("/{id}")
     @DELETE
     public void delete(@PathParam("{id}")long id){
-        Metro metro = metroDAO.findById(id);
+        Metro metro = (Metro) metroDAO.findById(id);
         metroDAO.delete(metro);
     }
 

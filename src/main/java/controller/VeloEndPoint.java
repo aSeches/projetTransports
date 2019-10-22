@@ -25,8 +25,7 @@ public class VeloEndPoint{
     @Path("/{id}")
     @GET
     public VeloDTO findById(@PathParam("{id}") long id){
-        Velo velo = veloDAO.findById(id);
-        VeloDTO veloDTO = mapper.toDTO(velo);
+        VeloDTO veloDTO = mapper.toDTO((Velo) veloDAO.findById(id));
         return veloDTO;
     }
 
@@ -34,8 +33,9 @@ public class VeloEndPoint{
     public List <VeloDTO> findAll(){
         List<VeloDTO> veloDTOS = new ArrayList<>();
 
-        for(Velo v : veloDAO.findAll()){
-            veloDTOS.add(mapper.toDTO(v));
+        //IDE suggestion : change type of m to Object, then cast it as Velo
+        for(Object v : veloDAO.findAll()){
+            veloDTOS.add(mapper.toDTO((Velo) v));
         }
         return veloDTOS;
     }
@@ -43,7 +43,7 @@ public class VeloEndPoint{
     @Path("/{id}")
     @DELETE
     public void delete(@PathParam("{id}") long id){
-        Velo velo = veloDAO.findById(id);
+        Velo velo = (Velo) veloDAO.findById(id);
         veloDAO.delete(velo);
     }
 }

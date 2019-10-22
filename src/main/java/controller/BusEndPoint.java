@@ -25,8 +25,7 @@ public class BusEndPoint {
     @Path("/{id}")
     @GET
     public BusDTO findById(@PathParam("{id}") long id){
-        Bus bus = busDAO.findById(id);
-        BusDTO busDTO = mapper.toDTO(bus);
+        BusDTO busDTO = mapper.toDTO((Bus) busDAO.findById(id));
         return busDTO;
     }
 
@@ -34,8 +33,9 @@ public class BusEndPoint {
     public List<BusDTO> findAll(){
         List<BusDTO> busDTOS = new ArrayList<>();
 
-        for(Bus b : busDAO.findAll()){
-            busDTOS.add(mapper.toDTO(b));
+        //IDE suggestion : change type of m to Object, then cast it as Metro
+        for(Object b : busDAO.findAll()){
+            busDTOS.add(mapper.toDTO((Bus) b));
         }
         return busDTOS;
     }
@@ -43,7 +43,7 @@ public class BusEndPoint {
     @Path("/{id}")
     @DELETE
     public void delete(@PathParam("{id}") long id) {
-        Bus bus = busDAO.findById(id);
+        Bus bus = (Bus) busDAO.findById(id);
         busDAO.delete(bus);
     }
 

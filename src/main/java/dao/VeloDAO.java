@@ -5,56 +5,54 @@ import model.Velo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class VeloDAO extends DAO<Velo> {
+public class VeloDAO<Velo, P extends Serializable> implements DAO<Velo, P> {
 
-    private Class<Velo> veloClass;
+    private Class<Velo> velo;
 
     @PersistenceContext
     EntityManager entityManager;
     EntityManagerHelper helper;
 
     public VeloDAO(){
-        setClass(Velo.class);
+        ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
+        this.velo = (Class<Velo>) genericSuperClass.getActualTypeArguments()[0];
     }
 
-    public Velo findById(long id){
-        return entityManager.find(veloClass, id);
+    @Override
+    public Velo findById(P id){
+        helper.beginTransaction();
+        Velo searchedVelo = entityManager.find(velo, id);
+        helper.commit();
+        return searchedVelo;
     }
 
     public List<Velo> findAll(){
-        return entityManager.createQuery("FROM " + veloClass.getName()).getResultList();
+        return entityManager.createQuery("FROM " + velo.getName()).getResultList();
     }
 
+    @Override
     public void create(Velo v){
         helper.beginTransaction();
         entityManager.persist(v);
         helper.commit();
     }
 
-    public void save(Velo v){
-        try{
-            helper.beginTransaction();
-            entityManager.persist(v);
-            helper.commit();
-        } catch (RuntimeException e){
-            helper.rollback();
-            throw e;
-        }
-    }
-
-    public Velo update(Velo v){
+    @Override
+    public void update(Velo v){
         helper.beginTransaction();
-        Velo updatedParameter = entityManager.merge(v);
+        entityManager.merge(v);
         helper.commit();
-        return updatedParameter;
     }
 
+    @Override
     public void delete(Velo v){
         helper.beginTransaction();
         entityManager.remove(v);

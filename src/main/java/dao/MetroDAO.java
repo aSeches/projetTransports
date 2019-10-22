@@ -5,56 +5,59 @@ import model.Metro;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class MetroDAO extends DAO<Metro> {
+public class MetroDAO<Metro, P extends Serializable> implements DAO<Metro, P> {
 
-    private Class<Metro> metroClass;
+    private Class<Metro> metro;
 
     @PersistenceContext
     EntityManager entityManager;
     EntityManagerHelper helper;
 
     public MetroDAO(){
-        setClass(Metro.class);
+        ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
+        this.metro = (Class<Metro>) genericSuperClass.getActualTypeArguments()[0];
     }
 
-    public Metro findById(long id){
-        return entityManager.find(metroClass, id);
+    @Override
+    public Metro findById(P id) {
+        helper.beginTransaction();
+        Metro searchedMetro = entityManager.find(metro, id);
+        helper.commit();
+        return searchedMetro;
     }
 
+    @Override
     public List<Metro> findAll(){
-        return entityManager.createQuery("SELECT * FROM " + metroClass.getName()).getResultList();
+        helper.beginTransaction();
+        List<Metro> allMetros = entityManager.createQuery("SELECT * FROM " + metro.getName()).getResultList();
+        helper.commit();
+        return allMetros;
     }
 
+    @Override
     public void create(Metro m){
         helper.beginTransaction();
         entityManager.persist(m);
         helper.commit();
     }
 
-    public void save(Metro m){
-        try{
-            helper.beginTransaction();
-            entityManager.persist(m);
-            helper.commit();
-        } catch (RuntimeException e){
-            helper.rollback();
-            throw e;
-        }
-    }
-
-    public Metro update(Metro m){
+    @Override
+    public void update(Metro m){
         helper.beginTransaction();
-        Metro updatedParameter = entityManager.merge(m);
+        entityManager.merge(m);
         helper.commit();
-        return updatedParameter;
+
     }
 
+    @Override
     public void delete(Metro m){
         helper.beginTransaction();
         entityManager.remove(m);

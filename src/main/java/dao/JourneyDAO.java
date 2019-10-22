@@ -6,52 +6,52 @@ import model.Journey;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class JourneyDAO extends DAO<Journey> {
+public class JourneyDAO<Journey, P extends Serializable> implements DAO<Journey, P> {
 
-
-    private Class<Journey> journeyClass;
+    protected Class<Journey> journey;
 
     @PersistenceContext
     EntityManager entityManager;
     EntityManagerHelper helper;
 
-    public JourneyDAO(){setClass(Journey.class);}
-
-    public Journey findById(long id){
-        return entityManager.find(journeyClass, id);
+    public JourneyDAO(){
+        ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
+        this.journey = (Class<Journey>) genericSuperClass.getActualTypeArguments()[0];
     }
 
-    public List<Journey> findAll(){
-        return entityManager.createQuery("SELECT * FROM " + journeyClass.getName()).getResultList();
+    @Override
+    public Journey findById(P id) {
+        helper.beginTransaction();
+        Journey searchedJourney = entityManager.find(journey, id);
+        helper.commit();
+        return searchedJourney;
     }
 
-    public void save(Journey j){
-        try{
-            EntityManagerHelper.beginTransaction();
-            entityManager.persist(j);
-            EntityManagerHelper.commit();
-        } catch(RuntimeException e){
-            EntityManagerHelper.rollback();
-            throw e;
-        }
+    @Override
+    public List<Journey> findAll() {
+        return entityManager.createQuery("SELECT * FROM " + journey.getName()).getResultList();
     }
 
-    public void create(Journey j){
+    @Override
+    public void create(Journey j) {
         helper.beginTransaction();
         entityManager.persist(j);
         helper.commit();
     }
 
-    public Journey update(Journey j){
+    @Override
+    public void update(Journey j) {
         helper.beginTransaction();
-        Journey updatedParameter = entityManager.merge(j);
+        entityManager.merge(j);
         helper.commit();
-        return updatedParameter;
     }
 
-    public void delete(Journey j){
+    @Override
+    public void delete(Journey j) {
         helper.beginTransaction();
         entityManager.remove(j);
         helper.commit();
