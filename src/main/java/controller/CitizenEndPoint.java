@@ -6,10 +6,8 @@ import dto.CitizenDTO;
 import model.Citizen;
 import org.mapstruct.factory.Mappers;
 
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +28,10 @@ public class CitizenEndPoint{
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<CitizenDTO> findAll(){
         List<CitizenDTO> citizenDTOS = new ArrayList<>();
+
 
         //IDE suggestion : change type of m to Object, then cast it as Metro
         for(Object c : citizenDAO.findAll()){

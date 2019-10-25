@@ -6,25 +6,21 @@ import model.Metro;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class MetroDAO<Metro, P extends Serializable> implements DAO<Metro, P> {
+public class MetroDAO<P extends Serializable> implements DAO<Metro, P> {
 
-    private Class<Metro> metro;
+    private Class<Metro> metro = model.Metro.class;
 
     @PersistenceContext
-    EntityManager entityManager;
+    EntityManager entityManager = EntityManagerHelper.getEntityManager();
     EntityManagerHelper helper;
 
-    public MetroDAO(){
-        ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.metro = (Class<Metro>) genericSuperClass.getActualTypeArguments()[0];
-    }
+    public MetroDAO(){ }
 
     @Override
     public Metro findById(P id) {
@@ -37,7 +33,7 @@ public class MetroDAO<Metro, P extends Serializable> implements DAO<Metro, P> {
     @Override
     public List<Metro> findAll(){
         helper.beginTransaction();
-        List<Metro> allMetros = entityManager.createQuery("SELECT * FROM " + metro.getName()).getResultList();
+        List<Metro> allMetros = entityManager.createQuery("SELECT m FROM " + metro.getName() + " m").getResultList();
         helper.commit();
         return allMetros;
     }

@@ -6,25 +6,21 @@ import model.Velo;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class VeloDAO<Velo, P extends Serializable> implements DAO<Velo, P> {
+public class VeloDAO<P extends Serializable> implements DAO<Velo, P> {
 
-    private Class<Velo> velo;
+    private Class<Velo> velo = model.Velo.class;
 
     @PersistenceContext
-    EntityManager entityManager;
+    EntityManager entityManager = EntityManagerHelper.getEntityManager();
     EntityManagerHelper helper;
 
-    public VeloDAO(){
-        ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.velo = (Class<Velo>) genericSuperClass.getActualTypeArguments()[0];
-    }
+    public VeloDAO(){ }
 
     @Override
     public Velo findById(P id){
@@ -35,7 +31,7 @@ public class VeloDAO<Velo, P extends Serializable> implements DAO<Velo, P> {
     }
 
     public List<Velo> findAll(){
-        return entityManager.createQuery("FROM " + velo.getName()).getResultList();
+        return entityManager.createQuery("SELECT v FROM " + velo.getName() + " v").getResultList();
     }
 
     @Override

@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 
 @Entity
+@Table(name="VELO")
 public class Velo implements Vehicle, Serializable {
 
     private long id;

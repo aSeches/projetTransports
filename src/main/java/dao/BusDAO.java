@@ -1,31 +1,26 @@
 package dao;
 
-import com.mysql.fabric.xmlrpc.base.Param;
 import m2info.EntityManagerHelper;
 import model.Bus;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class BusDAO<Bus, P extends Serializable> implements DAO<Bus,P> {
+public class BusDAO<P extends Serializable> implements DAO<Bus,P> {
 
-    protected Class<Bus> bus;
+    protected Class<Bus> bus = model.Bus.class;
 
     @PersistenceContext
-    EntityManager entityManager;
+    EntityManager entityManager = EntityManagerHelper.getEntityManager();
     EntityManagerHelper helper;
 
-    public BusDAO(){
-        ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.bus = (Class<Bus>) genericSuperClass.getActualTypeArguments()[0];
-    }
+    public BusDAO(){ }
 
     @Override
     public Bus findById(P id) {
@@ -37,7 +32,7 @@ public class BusDAO<Bus, P extends Serializable> implements DAO<Bus,P> {
 
     @Override
     public List<Bus> findAll() {
-        return entityManager.createQuery("SELECT * FROM " + bus.getName()).getResultList();
+        return entityManager.createQuery("SELECT b FROM " + bus.getName() + " b").getResultList();
     }
 
     @Override

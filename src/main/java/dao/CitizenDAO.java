@@ -7,24 +7,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.List;
-import java.lang.reflect.ParameterizedType;
 
 /**
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class CitizenDAO<Citizen, P extends Serializable> implements DAO<Citizen, P> {
+public class CitizenDAO<P extends Serializable> implements DAO<Citizen, P > {
 
-    private Class<Citizen> citizen;
+    private Class<Citizen> citizen = model.Citizen.class;
 
     @PersistenceContext
-    EntityManager entityManager;
+    EntityManager entityManager = EntityManagerHelper.getEntityManager();
     EntityManagerHelper helper;
 
-    public CitizenDAO(){
-        ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.citizen = (Class<Citizen>) genericSuperClass.getActualTypeArguments()[0];
-    }
+    public CitizenDAO(){ }
 
     @Override
     public Citizen findById(P id) {
@@ -36,7 +32,7 @@ public class CitizenDAO<Citizen, P extends Serializable> implements DAO<Citizen,
 
     @Override
     public List<Citizen> findAll(){
-        return entityManager.createQuery("SELECT * FROM " + citizen.getName()).getResultList();
+        return entityManager.createQuery("SELECT c FROM " + citizen.getName() + " c").getResultList();
     }
 
     @Override

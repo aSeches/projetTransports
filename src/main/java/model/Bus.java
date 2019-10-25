@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 
 @Entity
+@Table(name="BUS")
 public class Bus implements Vehicle, Serializable {
 
     private long id;

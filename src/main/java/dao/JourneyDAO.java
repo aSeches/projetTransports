@@ -4,24 +4,19 @@ import m2info.EntityManagerHelper;
 import model.Journey;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class JourneyDAO<Journey, P extends Serializable> implements DAO<Journey, P> {
+public class JourneyDAO<P extends Serializable> implements DAO<Journey, P> {
 
-    protected Class<Journey> journey;
+    protected Class<Journey> journey = model.Journey.class;
 
     @PersistenceContext
-    EntityManager entityManager;
+    EntityManager entityManager = EntityManagerHelper.getEntityManager();
     EntityManagerHelper helper;
 
-    public JourneyDAO(){
-        ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.journey = (Class<Journey>) genericSuperClass.getActualTypeArguments()[0];
-    }
+    public JourneyDAO(){ }
 
     @Override
     public Journey findById(P id) {
@@ -33,7 +28,7 @@ public class JourneyDAO<Journey, P extends Serializable> implements DAO<Journey,
 
     @Override
     public List<Journey> findAll() {
-        return entityManager.createQuery("SELECT * FROM " + journey.getName()).getResultList();
+        return entityManager.createQuery("SELECT j FROM " + journey.getName() + " j").getResultList();
     }
 
     @Override

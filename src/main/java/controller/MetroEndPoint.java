@@ -6,10 +6,8 @@ import dto.MetroDTO;
 import model.Metro;
 import org.mapstruct.factory.Mappers;
 
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,7 @@ import java.util.List;
 @Path("metro")
 public class MetroEndPoint {
 
-    private MetroDAO metroDAO;
+    private MetroDAO metroDAO = new MetroDAO();
     private MetroMapper mapper = Mappers.getMapper(MetroMapper.class);
 
     @Path("/{id}")
@@ -30,6 +28,7 @@ public class MetroEndPoint {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<MetroDTO> findAll(){
         List<MetroDTO> metroDTOS = new ArrayList<>();
 

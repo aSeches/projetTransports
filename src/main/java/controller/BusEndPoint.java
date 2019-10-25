@@ -6,10 +6,8 @@ import dto.BusDTO;
 import model.Bus;
 import org.mapstruct.factory.Mappers;
 
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,7 @@ import java.util.List;
 @Path("bus")
 public class BusEndPoint {
 
-    private BusDAO busDAO;
+    private BusDAO busDAO = new BusDAO();
     private BusMapper mapper = Mappers.getMapper(BusMapper.class);
 
     @Path("/{id}")
@@ -30,6 +28,7 @@ public class BusEndPoint {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<BusDTO> findAll(){
         List<BusDTO> busDTOS = new ArrayList<>();
 

@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 
 @Entity
+@Table(name="METRO")
 public class Metro implements Vehicle, Serializable {
 
     private long id;
