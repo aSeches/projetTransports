@@ -17,15 +17,13 @@ public class Citizen implements Serializable {
 
     private long id;
     private String name, home, work;
-    private double distance;
 
     public Citizen(){};
 
-    public Citizen(String name, String home, String work, double distance){
+    public Citizen(String name, String home, String work){
         this.name = name;
         this.home = home;
         this.work = work;
-        this.distance = distance;
     }
 
     @Id

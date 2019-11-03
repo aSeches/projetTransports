@@ -51,10 +51,10 @@ public class JpaTest {
     public void createCitizens(){
         int numOfCitizens = manager.createQuery("FROM Citizen c",Citizen.class).getResultList().size();
         if(numOfCitizens == 0){
-            manager.persist(new Citizen("Yoann","Roazhon Park", "ISTIC", 15.00));
-            manager.persist(new Citizen("Raoul","Le Bato", "ISTIC", 0.10));
-            manager.persist(new Citizen("Jacques", "St-Augustin","Nauzan Plage", 10.00));
-            manager.persist(new Citizen("Obi-Wan Kenobi","La Force", "Coruscant",40));
+            manager.persist(new Citizen("Yoann","Roazhon Park", "ISTIC"));
+            manager.persist(new Citizen("Raoul","Le Bato", "ISTIC"));
+            manager.persist(new Citizen("Jacques", "St-Augustin","Nauzan Plage"));
+            manager.persist(new Citizen("Obi-Wan Kenobi","La Force", "Coruscant"));
         }
     }
 
@@ -62,7 +62,7 @@ public class JpaTest {
         List<Citizen> resultList = manager.createQuery("FROM Citizen c",Citizen.class).getResultList();
         System.out.println("numOfCitizens = " + resultList.size());
         for (Citizen next : resultList){
-            System.out.println("next citizen");
+            System.out.println("citizen " + next.getId() + " created: " + next.toString());
         }
     }
 
@@ -80,7 +80,7 @@ public class JpaTest {
         List<Bus> resultList = manager.createQuery("FROM Bus b",Bus.class).getResultList();
         System.out.println("numOfBuses = " + resultList.size());
         for (Bus next : resultList){
-            System.out.println("next bus");
+            System.out.println("bus " + next.getId() + " created : " + next.toString());
         }
     }
 
@@ -95,7 +95,7 @@ public class JpaTest {
         List<Metro> resultList = manager.createQuery("FROM Metro m",Metro.class).getResultList();
         System.out.println("numOfBuses = " + resultList.size());
         for (Metro next : resultList){
-            System.out.println("next metro");
+            System.out.println("metro " + next.getId() + " created: " + next.toString());
         }
     }
 
@@ -114,7 +114,7 @@ public class JpaTest {
         List<Velo> resultList = manager.createQuery("FROM Velo v",Velo.class).getResultList();
         System.out.println("numOfVelos = " + resultList.size());
         for (Velo next : resultList){
-            System.out.println("next bicycle");
+            System.out.println("bicycle " + next.getId() + " created: " + next.toString());
         }
     }
 

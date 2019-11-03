@@ -32,7 +32,6 @@ public class CitizenEndPoint{
     public List<CitizenDTO> findAll(){
         List<CitizenDTO> citizenDTOS = new ArrayList<>();
 
-
         //IDE suggestion : change type of m to Object, then cast it as Metro
         for(Object c : citizenDAO.findAll()){
             citizenDTOS.add(mapper.toDTO((Citizen) c));

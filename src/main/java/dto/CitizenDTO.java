@@ -10,15 +10,13 @@ public class CitizenDTO implements Serializable {
 
     private Long id;
     private String name, home, work;
-    private double distance;
 
     public CitizenDTO(){};
 
-    public CitizenDTO(String name, String home, String work, double distance){
+    public CitizenDTO(String name, String home, String work){
         this.name = name;
         this.home = home;
         this.work = work;
-        this.distance = distance;
     }
 
     public Long getId() {
@@ -49,11 +47,4 @@ public class CitizenDTO implements Serializable {
         this.work = work;
     }
 
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
 }
