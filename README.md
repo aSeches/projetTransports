@@ -47,7 +47,7 @@ Once the HSQLDB client is running, you should modify the "Type" option to "HSQL 
 
 
 Now that your local database is set, go back to your IDE and : 
-* populate the base by running [JPATest.java](src/main/java/m2info/JPATest.java); 
+* populate the base by running [JPATest.java](src/main/java/m2info/JpaTest.java); 
 * run [RestServer.java](src/main/java/rest/RestServer.java) to enable the JPQL requests.
 
 You can now request this database in HSQLDB ! 
