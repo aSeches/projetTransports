@@ -1,33 +1,27 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalTime;
 
 @Entity
-@Table(name="JOURNEY")
+@Table(name="journey")
 public class Journey implements Serializable {
 
     private long id, idCitizen, idVehicle;
-    private LocalTime departure;
-    private LocalTime arrival;
-    private LocalTime commute;
+    private int departure, arrival, commute;
 
     public Journey(){}
 
-    public Journey(LocalTime departure, LocalTime arrival, LocalTime commute){
+    public Journey(int departure, int arrival){
         this.departure = departure;
         this.arrival = arrival;
-        this.commute = commute;
+        this.commute = arrival - departure;
     }
 
     @Id
     @NotNull
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -56,34 +50,34 @@ public class Journey implements Serializable {
         this.idVehicle = idVehicle;
     }
 
-    public LocalTime getDeparture() {
+    public int getDeparture() {
         return departure;
     }
 
-    public void setDeparture(LocalTime departure) {
+    public void setDeparture(int departure) {
         this.departure = departure;
     }
 
-    public LocalTime getArrival() {
+    public int getArrival() {
         return arrival;
     }
 
-    public void setArrival(LocalTime arrival) {
+    public void setArrival(int arrival) {
         this.arrival = arrival;
     }
 
-    public LocalTime getCommute() {
+    public int getCommute() {
         return commute;
     }
 
-    public void setCommute(LocalTime commute) {
+    public void setCommute(int commute) {
         this.commute = commute;
     }
 
     @Override
     public String toString(){
-        return "Journey [id= " + id + ", idCitizen= " + idCitizen + ", idVehicle= " + idVehicle
-                + ", departure= " + departure + ", commute= " + commute + ", arrival= " + arrival
+        return "Journey [id= " + getId() + ", idCitizen= " + getIdCitizen() + ", idVehicle= " + getIdVehicle()
+                + ", departure= " + getDeparture() + ", commute= " + getCommute() + ", arrival= " + getArrival()
                 + "]";
     }
 

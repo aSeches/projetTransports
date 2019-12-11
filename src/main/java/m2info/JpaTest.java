@@ -105,8 +105,6 @@ public class JpaTest {
             manager.persist(new Velo());
             manager.persist(new Velo());
             manager.persist(new Velo());
-            manager.persist(new Velo());
-            manager.persist(new Velo());
         }
     }
 

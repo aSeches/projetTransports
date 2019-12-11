@@ -23,7 +23,7 @@ public class BusEndPoint {
     @Path("/{id}")
     @GET
     public BusDTO findById(@PathParam("{id}") long id){
-        BusDTO busDTO = mapper.toDTO((Bus) busDAO.findById(id));
+        BusDTO busDTO = mapper.toDTO(busDAO.findById(id));
         return busDTO;
     }
 
@@ -42,7 +42,7 @@ public class BusEndPoint {
     @Path("/{id}")
     @DELETE
     public void delete(@PathParam("{id}") long id) {
-        Bus bus = (Bus) busDAO.findById(id);
+        Bus bus = busDAO.findById(id);
         busDAO.delete(bus);
     }
 

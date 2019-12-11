@@ -23,7 +23,7 @@ public class VeloEndPoint{
     @Path("/{id}")
     @GET
     public VeloDTO findById(@PathParam("{id}") long id){
-        VeloDTO veloDTO = mapper.toDTO((Velo) veloDAO.findById(id));
+        VeloDTO veloDTO = mapper.toDTO(veloDAO.findById(id));
         return veloDTO;
     }
 
@@ -42,7 +42,7 @@ public class VeloEndPoint{
     @Path("/{id}")
     @DELETE
     public void delete(@PathParam("{id}") long id){
-        Velo velo = (Velo) veloDAO.findById(id);
+        Velo velo = veloDAO.findById(id);
         veloDAO.delete(velo);
     }
 }
