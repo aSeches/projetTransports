@@ -23,7 +23,7 @@ public class MetroEndPoint {
     @Path("/{id}")
     @GET
     public MetroDTO findById(@PathParam("{id}") long id){
-        MetroDTO metroDTO = mapper.toDTO((Metro) metroDAO.findById(id));
+        MetroDTO metroDTO = mapper.toDTO(metroDAO.findById(id));
         return metroDTO;
     }
 
@@ -42,7 +42,7 @@ public class MetroEndPoint {
     @Path("/{id}")
     @DELETE
     public void delete(@PathParam("{id}")long id){
-        Metro metro = (Metro) metroDAO.findById(id);
+        Metro metro = metroDAO.findById(id);
         metroDAO.delete(metro);
     }
 

@@ -23,7 +23,7 @@ public class CitizenEndPoint{
     @Path("/{id}")
     @GET
     public CitizenDTO findById(@PathParam("{id}") long id){
-        CitizenDTO citizenDTO = mapper.toDTO((Citizen) citizenDAO.findById(id));
+        CitizenDTO citizenDTO = mapper.toDTO(citizenDAO.findById(id));
         return citizenDTO;
     }
 
@@ -39,11 +39,13 @@ public class CitizenEndPoint{
         return citizenDTOS;
     }
 
+    @PUT
+
 
     @Path("/{id}")
     @DELETE
     public void delete(@PathParam("{id}") long id){
-        Citizen citizen = (Citizen) citizenDAO.findById(id);
+        Citizen citizen = citizenDAO.findById(id);
         citizenDAO.delete(citizen);
     }
 

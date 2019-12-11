@@ -24,7 +24,7 @@ public class JourneyEndPoint{
     @Path("/{id}")
     @GET
     public JourneyDTO findById(@PathParam("{id}")long id){
-        JourneyDTO journeyDTO = mapper.toDTO((Journey) journeyDAO.findById(id));
+        JourneyDTO journeyDTO = mapper.toDTO(journeyDAO.findById(id));
         return journeyDTO;
     }
 
@@ -43,7 +43,7 @@ public class JourneyEndPoint{
     @Path("/{id}")
     @DELETE
     public void delete(long id){
-        Journey journey = (Journey) journeyDAO.findById(id);
+        Journey journey = journeyDAO.findById(id);
         journeyDAO.delete(journey);
     }
 }

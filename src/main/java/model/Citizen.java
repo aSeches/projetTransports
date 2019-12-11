@@ -1,9 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -15,7 +12,11 @@ import java.io.Serializable;
 @Table(name="citizen")
 public class Citizen implements Serializable {
 
+    @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String name, home, work;
 
     public Citizen(){};
@@ -26,9 +27,6 @@ public class Citizen implements Serializable {
         this.work = work;
     }
 
-    @Id
-    @NotNull
-    @GeneratedValue
     public long getId(){return id;}
 
     public void setId(long id){

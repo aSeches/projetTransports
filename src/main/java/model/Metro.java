@@ -10,9 +10,12 @@ import java.util.ArrayList;
  */
 
 @Entity
-@Table(name="METRO")
+@Table(name="metro")
 public class Metro implements Vehicle, Serializable {
 
+    @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private ArrayList<Citizen> passengers;
     private int maxCapacity = 60;
@@ -25,7 +28,7 @@ public class Metro implements Vehicle, Serializable {
     @Override
     @Id
     @NotNull
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
