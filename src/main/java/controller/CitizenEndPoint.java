@@ -8,6 +8,9 @@ import org.mapstruct.factory.Mappers;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.net.HttpURLConnection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +42,21 @@ public class CitizenEndPoint{
         return citizenDTOS;
     }
 
+    @Path("/{id}")
     @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public void create(CitizenDTO c){
+        List<CitizenDTO> citizenDTOS = new ArrayList<>();
+    //TODO : complete body method for updating a citizen and adding it to the list
+    }
 
+    @Path("/{id}")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void update(CitizenDTO c){
+        // TODO : complete body for updating a citizen
+    }
 
     @Path("/{id}")
     @DELETE

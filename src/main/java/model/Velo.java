@@ -17,7 +17,11 @@ public class Velo implements Vehicle, Serializable {
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="CITIZEN.ID")
     private ArrayList<Citizen> rider;
+
     private int maxCapacity = 1;
     private double kmhSpeed = 20.00;
 

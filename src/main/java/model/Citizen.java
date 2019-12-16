@@ -27,6 +27,9 @@ public class Citizen implements Serializable {
         this.work = work;
     }
 
+    @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId(){return id;}
 
     public void setId(long id){

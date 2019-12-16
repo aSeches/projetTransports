@@ -18,6 +18,8 @@ public class Bus implements Vehicle, Serializable {
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @OneToMany(mappedBy="citizen")
     private ArrayList<Citizen> passengers;
     private int maxCapacity = 40;
     private double kmhSpeed = 50.00;

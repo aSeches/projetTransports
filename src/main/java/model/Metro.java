@@ -17,6 +17,8 @@ public class Metro implements Vehicle, Serializable {
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @OneToMany(mappedBy = "citizen")
     private ArrayList<Citizen> passengers;
     private int maxCapacity = 60;
     private double kmhSpeed = 70.00;

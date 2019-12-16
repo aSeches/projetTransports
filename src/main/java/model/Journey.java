@@ -8,7 +8,16 @@ import java.io.Serializable;
 @Table(name="journey")
 public class Journey implements Serializable {
 
-    private long id, idCitizen, idVehicle;
+    @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="CITIZEN.ID")
+    private long idCitizen;
+
+    private long idVehicle;
     private int departure, arrival, commute;
 
     public Journey(){}

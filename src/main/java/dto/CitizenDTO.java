@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class CitizenDTO implements Serializable {
 
-    private Long id;
+    private long id;
     private String name, home, work;
 
     public CitizenDTO(){};
@@ -19,7 +19,7 @@ public class CitizenDTO implements Serializable {
         this.work = work;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

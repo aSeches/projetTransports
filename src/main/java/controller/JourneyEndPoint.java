@@ -2,6 +2,7 @@ package controller;
 
 import controller.mapper.JourneyMapper;
 import dao.JourneyDAO;
+import dto.CitizenDTO;
 import dto.JourneyDTO;
 import model.Journey;
 import org.hibernate.annotations.Cascade;
@@ -38,6 +39,22 @@ public class JourneyEndPoint{
             journeyDTOS.add(mapper.toDTO((Journey) j));
         }
         return journeyDTOS;
+    }
+
+    @Path("/{id}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public void create(JourneyDTO j){
+        List<JourneyDTO> journeyDTOS = new ArrayList<>();
+        //TODO : complete body method for updating a journey and adding it to the list
+    }
+
+    @Path("/{id}")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void update(JourneyDTO j){
+        // TODO : complete body for updating a journey
     }
 
     @Path("/{id}")
