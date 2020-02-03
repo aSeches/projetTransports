@@ -49,13 +49,6 @@ public class JpaTest {
     }
 
     public void createCitizens(){
-        /*
-        int numOfCitizens = manager.createQuery("FROM Citizen c",Citizen.class).getResultList().size();
-        if(numOfCitizens == 0){
-
-        }
-         */
-
         manager.persist(new Citizen("Yoann","Roazhon Park", "ISTIC"));
         manager.persist(new Citizen("Raoul","Le Bato", "ISTIC"));
         manager.persist(new Citizen("Jacques", "St-Augustin","Nauzan Plage"));

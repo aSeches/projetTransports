@@ -71,10 +71,11 @@ public class CitizenEndPoint{
         for(Object cit : citizenDAO.findAll()){
             citizenDTOS.add(mapper.toDTO((Citizen) cit));
         }
-
-        if(citizenDTOS.contains(c)){
+        if(c.getName().equals(citizenDTOS.get((int) c.getId()).getName()) ){
+            System.out.println("contient le citoyen : " + citizen);
             citizenDAO.update(citizen);
         } else {
+            System.out.println("PAS ce citoyen : " + citizen);
             citizenDAO.update(citizen);
         }
     }
