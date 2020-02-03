@@ -12,7 +12,7 @@ import java.util.List;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class BusDAO<P extends Serializable> implements DAO<Bus,P> {
+public class BusDAO implements DAO<Bus> {
 
     protected Class<Bus> bus = model.Bus.class;
 
@@ -23,7 +23,7 @@ public class BusDAO<P extends Serializable> implements DAO<Bus,P> {
     public BusDAO(){ }
 
     @Override
-    public Bus findById(P id) {
+    public Bus findById(long id) {
         helper.beginTransaction();
         Bus searchedBus = entityManager.find(bus, id);
         helper.commit();

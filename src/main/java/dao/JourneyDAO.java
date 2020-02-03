@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.List;
 
-public class JourneyDAO<P extends Serializable> implements DAO<Journey, P> {
+public class JourneyDAO implements DAO<Journey> {
 
     protected Class<Journey> journey = model.Journey.class;
 
@@ -19,7 +19,7 @@ public class JourneyDAO<P extends Serializable> implements DAO<Journey, P> {
     public JourneyDAO(){ }
 
     @Override
-    public Journey findById(P id) {
+    public Journey findById(long id) {
         helper.beginTransaction();
         Journey searchedJourney = entityManager.find(journey, id);
         helper.commit();

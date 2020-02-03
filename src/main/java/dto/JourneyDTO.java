@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Path("journey")
 public class JourneyDTO implements Serializable {
-    private long id, idCitizen, idVehicle;
+    private int id, idCitizen, idVehicle;
     private int departure;
     private int arrival;
     private int commute;

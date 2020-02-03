@@ -12,7 +12,7 @@ import java.util.List;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class MetroDAO<P extends Serializable> implements DAO<Metro, P> {
+public class MetroDAO implements DAO<Metro> {
 
     private Class<Metro> metro = model.Metro.class;
 
@@ -23,7 +23,7 @@ public class MetroDAO<P extends Serializable> implements DAO<Metro, P> {
     public MetroDAO(){ }
 
     @Override
-    public Metro findById(P id) {
+    public Metro findById(long id) {
         helper.beginTransaction();
         Metro searchedMetro = entityManager.find(metro, id);
         helper.commit();

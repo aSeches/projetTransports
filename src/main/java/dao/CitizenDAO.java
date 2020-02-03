@@ -12,9 +12,9 @@ import java.util.List;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class CitizenDAO<P extends Serializable> implements DAO<Citizen, P > {
+public class CitizenDAO implements DAO<Citizen> {
 
-    private Class<Citizen> citizen = model.Citizen.class;
+    private Class<Citizen> citizenClass = model.Citizen.class;
 
     @PersistenceContext
     EntityManager entityManager = EntityManagerHelper.getEntityManager();
@@ -23,16 +23,17 @@ public class CitizenDAO<P extends Serializable> implements DAO<Citizen, P > {
     public CitizenDAO(){ }
 
     @Override
-    public Citizen findById(P id) {
+    public Citizen findById(long id) {
         helper.beginTransaction();
-        Citizen searchedCitizen = entityManager.find(citizen, id);
+        Citizen searchedCitizen = entityManager.find(citizenClass, id);
         helper.commit();
+        System.out.println(searchedCitizen);
         return searchedCitizen;
     }
 
     @Override
     public List<Citizen> findAll(){
-        return entityManager.createQuery("SELECT c FROM " + citizen.getName() + " c").getResultList();
+        return entityManager.createQuery("SELECT c FROM " + citizenClass.getName() + " c").getResultList();
     }
 
     @Override

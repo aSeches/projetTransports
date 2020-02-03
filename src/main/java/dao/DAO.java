@@ -11,9 +11,9 @@ import java.util.List;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public interface DAO<T, P extends Serializable> {
+public interface DAO<T> {
 
-    T findById(P id);
+    T findById(long id);
 
     List<T> findAll();
 

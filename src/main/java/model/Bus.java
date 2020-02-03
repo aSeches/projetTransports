@@ -34,7 +34,7 @@ public class Bus implements Vehicle, Serializable {
         return id;
     }
 
-    @Override
+
     public void setId(long id) {
         this.id = id;
     }

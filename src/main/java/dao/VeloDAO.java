@@ -12,7 +12,7 @@ import java.util.List;
  * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 
-public class VeloDAO<P extends Serializable> implements DAO<Velo, P> {
+public class VeloDAO implements DAO<Velo> {
 
     private Class<Velo> velo = model.Velo.class;
 
@@ -23,7 +23,7 @@ public class VeloDAO<P extends Serializable> implements DAO<Velo, P> {
     public VeloDAO(){ }
 
     @Override
-    public Velo findById(P id){
+    public Velo findById(long id){
         helper.beginTransaction();
         Velo searchedVelo = entityManager.find(velo, id);
         helper.commit();

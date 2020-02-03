@@ -27,13 +27,15 @@ public class Metro implements Vehicle, Serializable {
         passengers = new ArrayList<Citizen>();
     }
 
-    @Override
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
+
+    @Override
+    public void setId(long id) { this.id = id; }
 
     @Override
     public int getMaxCapacity() {
@@ -53,11 +55,6 @@ public class Metro implements Vehicle, Serializable {
     @Override
     public void setSpeed(double speed) {
         this.kmhSpeed = speed;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
     }
 
     @Override

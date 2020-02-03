@@ -11,9 +11,10 @@ public class CitizenDTO implements Serializable {
     private long id;
     private String name, home, work;
 
-    public CitizenDTO(){};
+   public CitizenDTO(){};
 
-    public CitizenDTO(String name, String home, String work){
+   public CitizenDTO(long id, String name, String home, String work){
+        this.id = id;
         this.name = name;
         this.home = home;
         this.work = work;
@@ -21,6 +22,10 @@ public class CitizenDTO implements Serializable {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(int id){
+       this.id = id;
     }
 
     public String getName() {
