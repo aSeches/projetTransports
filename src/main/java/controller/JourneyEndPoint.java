@@ -24,7 +24,7 @@ public class JourneyEndPoint{
 
     @Path("/{id}")
     @GET
-    public JourneyDTO findById(@PathParam("{id}")long id){
+    public JourneyDTO findById(@PathParam("id")long id){
         JourneyDTO journeyDTO = mapper.toDTO(journeyDAO.findById(id));
         return journeyDTO;
     }
