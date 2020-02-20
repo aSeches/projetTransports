@@ -11,7 +11,7 @@ Clone the project into your local repository.
 git clone https://github.com/aSeches/projetTransports
 ```
 
-Open the project in your favourite IDE.
+Open the project in your favourite IDE (preferably IntellJ or Eclipse).
 
 ### Prerequisites
 

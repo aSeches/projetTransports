@@ -31,20 +31,38 @@ public class CitizenEndPoint{
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public CitizenDTO findById(@PathParam("id") long id){
-        return mapper.toDTO(citizenDAO.findById(id));
+    public Response findById(@PathParam("id") long id){
+        return Response
+                .status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers",
+                        "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .entity(mapper.toDTO(citizenDAO.findById(id)))
+                .build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CitizenDTO> findAll(){
+    public Response findAll(){
         List<CitizenDTO> citizenDTOS = new ArrayList<>();
 
         for(Object c : citizenDAO.findAll()){
             System.out.println(c);
             citizenDTOS.add(mapper.toDTO((Citizen) c));
         }
-        return citizenDTOS;
+        return Response
+                .status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers",
+                        "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .entity(citizenDTOS)
+                .build();
     }
 
     @POST
