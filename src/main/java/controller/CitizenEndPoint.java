@@ -28,6 +28,16 @@ public class CitizenEndPoint{
     private Client client = ClientBuilder.newClient();
     private WebTarget target = client.target("http://localhost:8080/citizen");
 
+    @GET
+    @Path("/")
+    @Produces({ MediaType.TEXT_PLAIN })
+    public Response index() {
+        return Response.status(200).header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity("").build();
+    }
+
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,6 +55,7 @@ public class CitizenEndPoint{
     }
 
     @GET
+    @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll(){
         List<CitizenDTO> citizenDTOS = new ArrayList<>();
@@ -53,16 +64,11 @@ public class CitizenEndPoint{
             System.out.println(c);
             citizenDTOS.add(mapper.toDTO((Citizen) c));
         }
-        return Response
-                .status(200)
-                .header("Access-Control-Allow-Origin", "*")
+
+        return Response.status(200).header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
                 .header("Access-Control-Allow-Credentials", "true")
-                .header("Access-Control-Allow-Headers",
-                        "origin, content-type, accept, authorization")
-                .header("Access-Control-Allow-Methods",
-                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                .entity(citizenDTOS)
-                .build();
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(citizenDTOS).build();
     }
 
     @POST
@@ -70,10 +76,7 @@ public class CitizenEndPoint{
     @Produces(MediaType.APPLICATION_JSON)
     public void create(CitizenDTO c){
         Citizen citizen = mapper.toEntity(c);
-
-        for(Object o : citizenDAO.findAll()){
-            citizenDTOS.add(mapper.toDTO((Citizen) o));
-        }
+        
         if(!(citizenDTOS.contains(citizen))){
             citizenDAO.create(citizen);
         }

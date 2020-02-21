@@ -1,8 +1,13 @@
 package rest;
 
-import io.undertow.Undertow;
+import io.undertow.*;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
+import org.jboss.resteasy.spi.ResteasyDeployment;
+import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
+import org.jboss.resteasy.plugins.interceptors.CorsFilter;
+
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 /**
@@ -19,11 +24,20 @@ public class RestServer {
 
         RestApplication ta = new RestApplication();
 
+        ResteasyDeployment deployment = new ResteasyDeployment();
+
+        CorsFilter filter = new CorsFilter();
+        filter.setAllowedMethods("GET,POST,PUT,DELETE,OPTIONS");
+        filter.setAllowedHeaders("X-Requested-With, Content-Type, Content-Length, Authorization");
+        filter.getAllowedOrigins().add("*");
+
+        deployment.setProviderFactory(new ResteasyProviderFactory());
+        deployment.getProviderFactory().register(filter);
         ut.deploy(ta);
 
         ut.start(
                 Undertow.builder()
-                        .addHttpListener(8081, "localhost")
+                        .addHttpListener(8080, "localhost")
 
         );
 
