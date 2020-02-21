@@ -59,5 +59,6 @@ You can now request this database in HSQLDB !
 * [Maven](https://maven.apache.org/) - Dependency management
 
 ## Author 
-* **Amaury Seches** - Student in software development - (https://github.com/aSeches)
+* **[Amaury Seches](https://github.com/aSeches)** - Student in software development
+* **[Alex Siharath](https://github.com/asiharath)** - Student in computer science, main author of the FrontEnd
 
