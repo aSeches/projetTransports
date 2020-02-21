@@ -7,16 +7,19 @@ import model.Citizen;
 import org.mapstruct.factory.Mappers;
 
 import javax.ws.rs.*;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Amaury SECHES, Student of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
+ * Contains CRUD methods for the Citizen class
+ * Mapping DTOs and concrete objects is made with org.mapstruct.factory.Mappers (in specific package src/main/java/controller/mapper/CitizenMapper.class)
+ *
+ * For Cross-origin resource sharing (CORS) purposes,
+ * return type for each request must be a Response with headers
+ *
+ * @author Amaury SECHES and Alex SIHARATH, students of Master's degree in Computer Science, ISTIC (Rennes, FRANCE)
  */
 @Path("citizen")
 public class CitizenEndPoint{
@@ -25,10 +28,12 @@ public class CitizenEndPoint{
     private CitizenDAO citizenDAO = new CitizenDAO();
     private CitizenMapper mapper = Mappers.getMapper(CitizenMapper.class);
 
-    private Client client = ClientBuilder.newClient();
-    private WebTarget target = client.target("http://localhost:8080/citizen");
-
-
+    /**
+     * Given a specific id, gets a Citizen
+     *
+     * @param id : citizen's id
+     * @return a citizen
+     */
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,6 +50,11 @@ public class CitizenEndPoint{
                 .build();
     }
 
+    /**
+     * Gets the whole table of citizens contained in database
+     *
+     * @return a Response with all citizens in database
+     */
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -62,6 +72,12 @@ public class CitizenEndPoint{
                 .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(citizenDTOS).build();
     }
 
+    /**
+     * Given a JSON object containing citizen infos, creates it in the database if it doesn't exist already
+     *
+     * @param c : citizen JSON object
+     * @return a Response with the created citizen
+     */
     @POST
     @Consumes({ MediaType.APPLICATION_JSON})
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,16 +105,20 @@ public class CitizenEndPoint{
         return Response.status(200).header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
                 .header("Access-Control-Allow-Credentials", "true")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity("Already exist").build();
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity("Already exists").build();
     }
 
+    /**
+     * Given a JSON object containing certain citizen's fields, modifies the citizen if it exists in database
+     *
+     * @param c : citizen JSON object
+     * @return a Response with the modified citizen
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(CitizenDTO c){
         Citizen citizen = mapper.toEntity(c);
-
-
 
         for(Object cit : citizenDAO.findAll()){
             citizenDTOS.add(mapper.toDTO((Citizen) cit));
@@ -116,6 +136,12 @@ public class CitizenEndPoint{
                 .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(citizen).build();
     }
 
+    /**
+     * Given a specific id, deletes a citizen
+     *
+     * @param id : citizen's id
+     * @return a Response with the deleted Citizen
+     */
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @DELETE
