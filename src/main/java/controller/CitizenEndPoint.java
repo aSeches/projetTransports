@@ -33,7 +33,6 @@ public class CitizenEndPoint{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") long id){
-<<<<<<< HEAD
         return Response
                 .status(200)
                 .header("Access-Control-Allow-Origin", "*")
@@ -44,13 +43,6 @@ public class CitizenEndPoint{
                         "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                 .entity(mapper.toDTO(citizenDAO.findById(id)))
                 .build();
-=======
-        CitizenDTO citizen= mapper.toDTO(citizenDAO.findById(id));
-        return Response.status(200).header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
-                .header("Access-Control-Allow-Credentials", "true")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(citizen).build();
->>>>>>> 74b1a5d7ad408842e21c3243b99b6d6c552aea98
     }
 
     @GET
@@ -71,26 +63,33 @@ public class CitizenEndPoint{
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({ MediaType.APPLICATION_JSON})
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(CitizenDTO c){
         Citizen citizen = mapper.toEntity(c);
-<<<<<<< HEAD
-        
-        if(!(citizenDTOS.contains(citizen))){
-=======
-
+        List<Citizen> citizens = new ArrayList<>();
+        List<String> citizensNames = new ArrayList<>();
         for(Object o : citizenDAO.findAll()){
-            citizenDTOS.add(mapper.toDTO((Citizen) o));
+            citizens.add((Citizen)o);
         }
-        if(!(citizenDTOS.contains(c))){
->>>>>>> 74b1a5d7ad408842e21c3243b99b6d6c552aea98
+
+        for(Citizen o : citizens){
+            citizensNames.add(o.getName());
+        }
+
+        if(!citizensNames.contains(citizen.getName())) {
             citizenDAO.create(citizen);
+
+            return Response.status(200).header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(citizen).build();
         }
+
         return Response.status(200).header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
                 .header("Access-Control-Allow-Credentials", "true")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(citizen).build();
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity("Already exist").build();
     }
 
     @PUT
@@ -111,13 +110,14 @@ public class CitizenEndPoint{
             System.out.println("PAS ce citoyen : " + citizen);
             citizenDAO.update(citizen);
         }
-        return Response.status(200).header("Access-Control-Allow-Origin", "*")
+        return Response.status(200).header("Access-Control-Allow-Origin", "http://localhost:8080/")
                 .header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
                 .header("Access-Control-Allow-Credentials", "true")
                 .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(citizen).build();
     }
 
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     @DELETE
     public Response delete(@PathParam("id") long id){
         Citizen citizen = citizenDAO.findById(id);
@@ -125,7 +125,7 @@ public class CitizenEndPoint{
         return Response.status(200).header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
                 .header("Access-Control-Allow-Credentials", "true")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(id).build();
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(citizen).build();
     }
 
 }
