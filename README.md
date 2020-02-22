@@ -52,6 +52,7 @@ Now that your local database is set, go back to your IDE and :
 
 You can now request this database in HSQLDB ! 
 
+## [API Description](src/main/java/controller/API-description.md)
 
 ## Built with
 * [JPA/Hibernate](https://hibernate.org/) - Data persistency
